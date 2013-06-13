@@ -17,6 +17,12 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here.
+    Inc16(in=w0,out=inc1);
+    Mux8Way16(a=in,b=false,c=inc1,d=false,e=in,f=false,g=in,h=false,sel[0]=reset,sel[1]=inc,sel[2]=load,out=in2);
+
+    Or(a=reset,b=inc,out=w1);
+    Or(a=w1,b=load,out=w2);
+
+    Register(in=in2,load=w2,out=out,out=w0);
 }
 
